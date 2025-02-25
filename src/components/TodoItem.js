@@ -15,8 +15,13 @@ function TodoItem({ todo, toggleComplete, removeTodo }) {
       }}
     >
       <span onClick={() => toggleComplete(todo.id)} style={{ cursor: 'pointer' }}>
-        {todo.text}
+        {todo.text} 
       </span>
+
+      <span style={{ textAlign: 'center', minWidth: '80px', fontWeight: 'bold' }}>
+        ({todo.priority})
+      </span>
+
       <button onClick={() => removeTodo(todo.id)} style={{ marginLeft: '10px' }}>
         ❌
       </button>

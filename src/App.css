@@ -57,6 +57,13 @@
   background-color: #fff;
 }
 
+select {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
 .App-link {
   color: #61dafb;
 }

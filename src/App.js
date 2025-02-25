@@ -6,8 +6,10 @@ import './App.css';
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = (text) => {
-    setTodos([...todos, { id: Date.now(), text, completed: false }]);
+  const addTodo = ({ text, priority }) => {
+    const priorityValue = priority === 'High' ? 1 : priority === 'Medium' ? 2 : 3;
+    const newTodo = { id: Date.now(), text, priority, priorityValue, completed: false }
+    setTodos((prevTodos) => [...prevTodos, newTodo].sort((a, b) => a.priorityValue - b.priorityValue));
   };
 
   const toggleComplete = (id) => {
@@ -30,6 +32,7 @@ function App() {
   return (
     <div className="container">
       <h1>React To-Do List</h1>
+
       <div className="summary-container">
         <p><strong>Total Todos:</strong> {totalTodos}</p>
         <p><strong>Completed:</strong> {completedTodos}</p>
