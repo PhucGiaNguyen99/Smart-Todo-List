@@ -6,10 +6,29 @@ import './App.css';
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = ({ text, priority }) => {
+  const addTodo = ({ text, priority, dueDate }) => {
     const priorityValue = priority === 'High' ? 1 : priority === 'Medium' ? 2 : 3;
-    const newTodo = { id: Date.now(), text, priority, priorityValue, completed: false }
-    setTodos((prevTodos) => [...prevTodos, newTodo].sort((a, b) => a.priorityValue - b.priorityValue));
+    const newTodo = { 
+      id: Date.now(), 
+      text, 
+      priority, 
+      priorityValue,
+      dueDate, 
+      completed: false };
+    
+    // Sorting based on their due dates first and then the priority value is due date is missed or the same
+    setTodos((prevTodos) =>
+        [...prevTodos, newTodo].sort((a, b) => {
+          // Sort by due date first (earliest first)
+          if (a.dueDate && b.dueDate) {
+            const dateComparison = new Date(a.dueDate) - new Date(b.dueDate);
+            if (dateComparison !== 0) return dateComparison;
+          }
+    
+          // If due date is the same or missing, sort by priority
+          return a.priorityValue - b.priorityValue;
+        })
+      );  
   };
 
   const toggleComplete = (id) => {
